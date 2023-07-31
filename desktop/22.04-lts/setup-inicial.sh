@@ -440,3 +440,8 @@ flatpak install -y org.remmina.Remmina;
 # Reproductor de contenido media (audio y video)
 flatpak install -y org.videolan.VLC;
 
+# Gestor de filtros de audio para pulseaudio
+flatpak install -y com.github.wwmm.pulseeffects;
+
+# Gestor de filtros de audio para pipewire (wayland)
+# flatpak install -y com.github.wwmm.easyeffects;

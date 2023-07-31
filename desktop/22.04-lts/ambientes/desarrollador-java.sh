@@ -66,7 +66,7 @@ sudo apt -y install \
   ca-certificates-java \
   openjdk-$SETUP_JAVA_VERSION-jdk \
   openjdk-$SETUP_JAVA_VERSION-jdk-headless \
-  openjdk-$SETUP_JAVA_VERSION-jre
+  openjdk-$SETUP_JAVA_VERSION-jre \
   openjdk-$SETUP_JAVA_VERSION-jre-headless;
 
 
