@@ -55,6 +55,8 @@ export EDITOR=nano;
 # Paquetes necesarios para la compilación de algunas herramientas
 sudo apt -y install perl cmake automake;
 
+# Shell por defecto
+echo 'SHELL=/bin/bash' > /etc/default/useradd;
 
 # == Interfaz de gnome ==
 
@@ -387,6 +389,12 @@ ntpd -gq;
 
 # Testea la hora y fecha actual sincronizada
 date;
+
+
+# == Bloqueo de spam ==
+
+git clone https://github.com/hagezi/dns-blocklists;
+sudo cat hosts/ultimate.txt >> /etc/hosts;
 
 
 # == Flatpak ==
