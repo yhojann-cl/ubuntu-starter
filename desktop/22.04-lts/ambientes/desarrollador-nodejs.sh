@@ -37,7 +37,7 @@ git config --global init.defaultBranch 'master';
 sudo apt -y install postgresql-client postgresql-client-common;
 
 # Cliente SQL múltiples protocolos
-flatpak install flathub io.beekeeperstudio.Studio;
+flatpak install -y flathub io.beekeeperstudio.Studio;
 
 
 # == Editor de código ==
@@ -50,7 +50,7 @@ sudo sysctl -p;
 
 # Visual Studio Code
 flatpak install -y com.visualstudio.code;
-
+# flatpak install -y io.atom.Atom;
 
 # == NodeJS ==
 

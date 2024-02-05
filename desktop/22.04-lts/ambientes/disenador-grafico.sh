@@ -17,4 +17,4 @@
 
 # Krita
 flatpak install -y org.kde.krita;
-
+flatpak install -y nl.hjdskes.gcolor3;

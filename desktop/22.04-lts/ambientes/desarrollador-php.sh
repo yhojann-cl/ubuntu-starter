@@ -53,7 +53,7 @@ sudo sysctl -p;
 
 # Visual Studio Code
 flatpak install -y com.visualstudio.code;
-
+# flatpak install -y io.atom.Atom;
 
 # == PHP ==
 

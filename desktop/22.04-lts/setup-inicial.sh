@@ -40,7 +40,7 @@ sudo apt -y autoclean;
 
 # Instala el editor de terminal por defecto.
 # vim es mejor pero es mucho más complicado.
-sudo apt -y install nano;
+# sudo apt -y install nano;
 
 # Establece nano como editor de terminal por defecto (reemplaza al editor vi)
 echo '
@@ -52,15 +52,22 @@ export VISUAL=nano;
 export VISUAL=nano;
 export EDITOR=nano;
 
+# Instala herramientas de monitoreo y mantención para el núcleo del sistema
+sudo apt install linux-tools-common;
+
 # Paquetes necesarios para la compilación de algunas herramientas
 sudo apt -y install perl cmake automake;
 
 # Shell por defecto
-echo 'SHELL=/bin/bash' > /etc/default/useradd;
+sudo echo 'SHELL=/bin/bash' > /etc/default/useradd;
+
+
+# == Teclado ==
+
+  # Habilita todas las distribuciones de teclado a buscar en las configuraciones
+  gsettings set org.gnome.desktop.input-sources show-all-sources true;
 
 # == Interfaz de gnome ==
-
-  ## == Barra superior del sistema ==
 
   # Muestra la fecha en la barra superior del sistema
   gsettings set org.gnome.desktop.interface clock-show-date true;
@@ -155,20 +162,14 @@ echo 'SHELL=/bin/bash' > /etc/default/useradd;
 
 # == Configuraciones de Ubuntu ==
 
-# Deshabilita las noticias (spam) de apt
-sudo pro config set apt_news=false;
+  # Deshabilita las noticias (spam) de apt
+  sudo pro config set apt_news=false;
 
   # == Eliminación de paquetes problemáticos ==
 
   # Elimina el nefasto Snap Store.
   # Ahorra recursos, bloqueos de IO, uso de memoria, CPU, etc.
   sudo snap remove snap-store;
-  sudo apt remove snap-store;
-  
-  # Elimina Gnome Software (el intento previo a Snap Store)
-  sudo apt remove gnome-software;
-  sudo apt autoremove;
-  sudo apt autoclean;
   
   # Si iotop indica un uso desmedido de rsyslog, unos 10gb de ram, 50% de uso de
   # CPU y un boqueo casi completo del disco duro, nautilus se bloquea y se
@@ -239,6 +240,11 @@ X11Forwarding no
 # Deshabilita la traducción DNS de las direcciones remotas
 # Aumenta la velocidad de autenticación
 UseDNS no
+
+# Deshabilita la desconexion prematura
+TCPKeepAlive no
+ClientAliveInterval 30
+ClientAliveCountMax 240
 ' > /etc/ssh/sshd_config.d/user.conf;
 
 # Aplica los cambios de las configuraciones reiniciando el servicio
@@ -360,7 +366,7 @@ sudo apt -y install tree tmux;
 sudo apt -y install whois net-tools traceroute;
 
 # Compatibilidad con discos ntfs y otros
-sudo apt -y install exfat-fuse exfat-utils;
+sudo apt -y install exfat-fuse;
 
 # Fuentes de texto básicos y suavizadores importantes
 sudo apt -y install ttf-ancient-fonts lcdf-typetools;
@@ -375,14 +381,14 @@ sudo apt -y install ffmpeg graphicsmagick-imagemagick-compat;
 sudo apt -y install ntp ntpdate;
 
 # Indica el servidor desde donde sincronizar
-sudo echo 'server ntp.shoa.cl' >> /etc/ntp.conf;
+echo 'server ntp.shoa.cl' >> /etc/ntp.conf;
 
 # Establece la zona horaria
 sudo timedatectl set-timezone America/Santiago
 
 # Inicia el servicio NTP
-systemctl enable ntp;
-systemctl restart ntp;
+sudo systemctl enable ntp;
+sudo systemctl restart ntp;
 
 # Sincroniza el servidor NTP
 ntpd -gq;
@@ -429,12 +435,14 @@ sudo flatpak remote-add --if-not-exists flathub \
 
 # Dependiendo del uso del equipo se recomiendan las siguientes aplicaciones:
 
+# Elimina la versión obsoleta instalada por defecto
+sudo snap remove firefox;
+
 # Google Chrome Stable
 flatpak install -y com.google.Chrome;
 
-# Mozilla Firefox
-sudo snap remove firefox; # Elimina la versión obsoleta instalada por defecto
-flatpak install -y org.mozilla.firefox; # Instala la última versión estable
+# Instala la última versión estable
+flatpak install -y org.mozilla.firefox;
 
 # Ofimática WPS Office
 flatpak install -y com.wps.Office;
